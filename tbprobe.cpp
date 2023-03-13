@@ -2659,3 +2659,30 @@ uint64_t tb_pawn_attacks(unsigned sq, bool color)
 }
 
 #endif      /* TB_NO_HELPER_API */
+
+#ifdef _WIN32
+
+__declspec(dllexport) bool __stdcall boootInit(char * path)
+{
+    return tb_init(path);
+}
+
+__declspec(dllexport) unsigned int __stdcall boootProbe(
+    uint64_t _white, uint64_t _black,   uint64_t _kings,   uint64_t _queens,
+    uint64_t _rooks, uint64_t _bishops, uint64_t _knights, uint64_t _pawns,
+    unsigned _rule50, unsigned _castling, unsigned _ep, bool _turn) {
+
+    return tb_probe_wdl(_white, _black,
+        _kings,
+        _queens,
+        _rooks,
+        _bishops,
+        _knights,
+        _pawns,
+        _rule50,
+        _castling,
+        _ep,
+        _turn);
+}
+
+#endif
